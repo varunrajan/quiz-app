@@ -14,8 +14,8 @@ $(document).ready(function(){
 		},
 
 		{
-		question: "Complete the song line: Dunder Mifflin:"
-		choices: ["People person's paper people","Paper for people who like paper","Peter Piper's Preferred Paper","People Person's Paper Pushers"]
+		question: "Complete the song line: Dunder Mifflin:",
+		choices: ["People person's paper people","Paper for people who like paper","Peter Piper's Preferred Paper","People Person's Paper Pushers"],
 		correct: ["People person's paper people"]
 		},
 
