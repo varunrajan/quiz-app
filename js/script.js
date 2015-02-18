@@ -32,9 +32,13 @@ $(document).ready(function(){
 		}
 	];
 
-	$("ul").on("click","li.choice",function(){
+	function displayChoice(){
+	{
+	$("li").on("click",function(e){
+		$(this).closest("ul").children().removeClass("selected");
 		$(this).addClass("selected");
-		preventDefault();
 	});
-
+	}
+	};
+	displayChoice();
 })
