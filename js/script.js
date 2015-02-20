@@ -49,8 +49,6 @@ $(document).ready(function(){
 //Define what happens after each question
 
 
-
-
 // counter function
 var count = parseInt($("span#count").text());
 var answered = parseInt($("span#answered").text());
@@ -64,9 +62,21 @@ var answered = parseInt($("span#answered").text());
 		}
 	}
 
+//Make number-right counter go up only upon choosing correct answer.
+var numberRight = parseInt($("span#number-right").text());
+	function answerReview(){
+			if ($("li.selected").text() == allQuestions[answered].correct){
+				console.log("Aha!");
+				$("span#number-right").replaceWith($("<span id='number-right'>"+(++numberRight)+"</span>"));
+			}
+
+	}
+
+
+
 // Replace each question
 	function replaceQuestion(){
-//		var questionNumber = $("<div id='quiz-content'><h2 class='question'>"+allQuestions[0][1]+"</h2><ul><li class='choice' id='A'>"+allQuestions[0][2][0]+"</li><li class='choice' id='B'>"+allQuestions[0][2][1]+"</li><li class='choice' id='C'>"+allQuestions[0][2][2]+"</li><li class='choice' id='D'>"+allQuestions[0][2][3]+"</li></ul></div>");
+
 		$("div#quiz-content").replaceWith($("<div id='quiz-content'><h2 class='question'>"+allQuestions[answered].question+"</h2><ul><li class='choice' id='A'>"+allQuestions[answered].choices[0]+"</li><li class='choice' id='B'>"+allQuestions[answered].choices[1]+"</li><li class='choice' id='C'>"+allQuestions[answered].choices[2]+"</li><li class='choice' id='D'>"+allQuestions[answered].choices[3]+"</li></ul></div>"));
 	}
 
@@ -74,14 +84,15 @@ var answered = parseInt($("span#answered").text());
 	function rules(){
 		$("button").on("click",function(e){
 
+		answerReview();
 		counter();
 		replaceQuestion();
 		displayChoice();
-		console.log("Yeah you did it.");
-		}	
-		);
+
+
+	})
 	}
 	rules();
 
+});
 
-})
