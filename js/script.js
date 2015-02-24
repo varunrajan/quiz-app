@@ -32,6 +32,18 @@ $(document).ready(function(){
 		}
 	];
 
+	// Set up variables for counter
+	var count = parseInt($("span#count").text());
+	var answered = parseInt($("span#answered").text());
+	//Make number-right counter go up only upon choosing correct answer.
+	var numberRight = parseInt($("span#number-right").text());
+	//Display different messages under the counters 
+	var rightMessage = $("<h2 class='message' id='right-answer'>Wow, you watch this show way too much. You have no life</h2>");
+	var wrongMessage = $("<h2 class='message' id='right-answer'>Uh okay, have you ever seen this show?</h2>");
+	var idiotMessage = $("<h2 class='message' id='idiot-message'>You didn't choose an answer. Don't be an idiot. Think to yourself, 'Would an idiot do this?' And if the answer is yes, then do not do that thing.</h2>");
+	// What happens at the end of the quiz: provide the results and replace the submission button with that to restart the quiz
+	var newQuizButton = $("<button id='new-game'>Take Quiz again?</button>");
+
 
 	//Make sure only one possible answer is displayed as chosen.
 	function displayChoice(){
@@ -41,35 +53,21 @@ $(document).ready(function(){
 			$(this).addClass("selected");
 		});
 		};
-	displayChoice();
 
 	//Define what happens after each question
-
-
-	// Set up variables for counter
-	var count = parseInt($("span#count").text());
-	var answered = parseInt($("span#answered").text());
 	// counter logic, increment on each question -- regardless of response
-
 	function counter(){
 		console.log("counter ran!")
 		if (count < 5){
 			$("span#count").replaceWith($("<span id='count'>"+(++count)+"</span>"));
 		}
-
 		if (answered < 5){
 			$("span#answered").replaceWith($("<span id='answered'>"+(++answered)+"</span>"));
 		}
-
 	}
 
-	//Make number-right counter go up only upon choosing correct answer.
-	var numberRight = parseInt($("span#number-right").text());
-
-	//Display different messages under the counters 
-	var rightMessage = $("<h2 class='message' id='right-answer'>Wow, you watch this show way too much. You have no life</h2>");
-	var wrongMessage = $("<h2 class='message' id='right-answer'>Uh okay, have you ever seen this show?</h2>");
-
+	// Make number-right counter go up only upon choosing correct answer.
+	// Display message indicating whether the answer was correct or not.
 	function answerReview(){
 		console.log("answerReview ran!");
 		if ($("li.selected").text() == allQuestions[answered].correct){
@@ -84,10 +82,7 @@ $(document).ready(function(){
 
 	}
 
-
-	// What happens at the end of the quiz: provide the results and replace the submission button with that to restart the quiz
-	var newQuizButton = $("<button id='new-game'>Take Quiz again?</button>");
-	
+	// Display result at the end of the quiz.
 	function result(){
 		console.log("result ran!");
 		$("h2.message").remove();
@@ -105,15 +100,33 @@ $(document).ready(function(){
 		}
 	}
 
+	// Start the quiz over
+	function newQuiz(){
+		newQuizButton.on("click",function(e){
+			count = 1;
+			answered = 0;
+			numberRight = 0;
+			
+			console.log("new quiz began!");
+	
+			$("h3").replaceWith($("<h3>Question Number <span id=\'count\'>"+count+"</span> || You have answered <span id=\'answered\'>"+answered+"</span> questions || You've gotten <span id=\'number-right\'>"+numberRight+"</span> right so far.</h3>"));
+			$("h2.message").remove();
+			$("button#new-game").replaceWith("<button id='submit'>Make a guess, homie</button>");
+			$("div#quiz-content").replaceWith($("<div id='quiz-content'><h2 class='question'>"+allQuestions[answered].question+"</h2><ul><li class='choice'>"+allQuestions[answered].choices[0]+"</li><li class='choice'>"+allQuestions[answered].choices[1]+"</li><li class='choice'>"+allQuestions[answered].choices[2]+"</li><li class='choice'>"+allQuestions[answered].choices[3]+"</li></ul></div>"));
+			rules();
+	});
+	};
 
 	//  How the quiz works
 	function rules(){
 		console.log("rules ran!");
+		displayChoice();
+		newQuiz();
 		$("button#submit").on("click",function(e){
 
 		if (!$("ul>li").hasClass("selected")){
 			$("h2.message").remove();
-			$("h3").after($("<h2 class='message' id='idiot-message'>You didn't choose an answer. Don't be an idiot. Think to yourself, 'Would an idiot do this?' And if the answer is yes, then do not do that thing.</h2>"));
+			$("h3").after(idiotMessage);
 		}
 		else {
 			answerReview();
@@ -126,21 +139,6 @@ $(document).ready(function(){
 	}
 	rules();
 
-	// Start the quiz over
-	newQuizButton.on("click",function(e){
-		count = 1;
-		answered = 0;
-		numberRight = 0;
-		
-		console.log("new quiz began!");
-
-		$("h3").replaceWith($("<h3>Question Number <span id=\'count\'>"+count+"</span> || You have answered <span id=\'answered\'>"+answered+"</span> questions || You've gotten <span id=\'number-right\'>"+numberRight+"</span> right so far.</h3>"));
-		$("h2.message").remove();
-		$("button#new-game").replaceWith("<button id='submit'>Make a guess, homie</button>");
-		$("div#quiz-content").replaceWith($("<div id='quiz-content'><h2 class='question'>"+allQuestions[answered].question+"</h2><ul><li class='choice'>"+allQuestions[answered].choices[0]+"</li><li class='choice'>"+allQuestions[answered].choices[1]+"</li><li class='choice'>"+allQuestions[answered].choices[2]+"</li><li class='choice'>"+allQuestions[answered].choices[3]+"</li></ul></div>"));
-
-
-	});
 
 });
 
