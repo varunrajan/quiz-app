@@ -49,21 +49,110 @@ table {
 
 /*END OF ALL THE RESET NONSENSE*/
 
+
+
+@media (max-width: 720px){
+	html {
+		font-size: 14px;
+
+	}
+	li.choice{
+		width: 45%;
+	}
+	h2.question{
+		font-size: 1.25rem;
+		width: 75%;
+	}
+}
+@media (min-width: 720px){
+	h1#title{
+		margin-top: 2%;
+	}
+	div#quiz-content{
+		margin-top: 2%;
+	}
+	ul li:first-child{
+		margin-top: 2%;
+	}
+	ul li:last-child{
+		margin-bottom: 2%;
+	}
+}
+
 * {
 	margin: auto;
 	text-align: center;
 }
 
 
+h1{
+	margin-top: 5%;
+	font-family: American Typewriter, serif;
+	font-size: 3rem;
+}
+
+ul li:first-child{
+	margin-top: 5%;
+}
+
+ul li:last-child{
+	margin-bottom: 5%;
+}
+
+li:hover:not(.selected){
+	background-color: #c1d1d4;
+	font-weight: bold;
+	cursor: crosshair;
+}
+
+#quiz-content{
+	margin-top: 5%;
+	
+}
+
+.question{
+	margin: auto;
+	width: 50%;	
+	font-family: Futura, sans-serif;
+	font-size: 1.5rem;
+}
+
 .choice{
 	text-align: center;
+	font-family: Helvetica, sans-serif;
 	margin: auto;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding: 1% 2% 1% 2%;
 	width: 20%;
-	border: 1px solid black;
+	border: 2px solid black;
+	border-radius: 5px;
 }
 
 
 .selected {
-	text-decoration: line-through;
-	color: red;
+	background-color: #b03032;
+	color: white;
+	font-weight: bold;
+}
+
+button {
+	font-size: 1rem;
+	margin-bottom: 2%;
+	cursor: pointer;
+}
+
+h3 {
+	font-family: Futura, sans-serif;
+}
+
+.message {
+	font-family: Helvetica, sans-serif;
+	border-radius: 5px;
+	background-color: #c1d1d4;
+	box-shadow: 5px 5px;
+	width: 45%;
+	margin: auto;
+	margin-top: 1%;
+	padding: 1% 2% 1% 2%;
 }

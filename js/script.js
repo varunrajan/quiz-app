@@ -35,6 +35,10 @@ $(document).ready(function(){
 	// Set up variables for counter
 	var count = parseInt($("span#count").text());
 	var answered = parseInt($("span#answered").text());
+	
+	// Increment number
+	var next = function(idName, e) {console.log(e); return $("<span id="+idName+">"+e+"</span>");}
+
 	//Make number-right counter go up only upon choosing correct answer.
 	var numberRight = parseInt($("span#number-right").text());
 	//Display different messages under the counters 
@@ -59,10 +63,13 @@ $(document).ready(function(){
 	function counter(){
 		console.log("counter ran!")
 		if (count < 5){
-			$("span#count").replaceWith($("<span id='count'>"+(++count)+"</span>"));
+			count = count+1;
+			$("span#count").replaceWith(next("count",count));
+
 		}
 		if (answered < 5){
-			$("span#answered").replaceWith($("<span id='answered'>"+(++answered)+"</span>"));
+			answered = answered + 1;
+			$("span#answered").replaceWith(next("answered",answered));
 		}
 	}
 
@@ -71,7 +78,8 @@ $(document).ready(function(){
 	function answerReview(){
 		console.log("answerReview ran!");
 		if ($("li.selected").text() == allQuestions[answered].correct){
-			$("span#number-right").replaceWith($("<span id='number-right'>"+(++numberRight)+"</span>"));
+			numberRight = numberRight +1;
+			$("span#number-right").replaceWith(next("number-right",numberRight));
 			$("h2.message").remove();
 			$("h3").after(rightMessage);
 		}
@@ -94,6 +102,7 @@ $(document).ready(function(){
 	function replaceQuestion(){
 		console.log("replaceQuestion ran!");
 		if (answered < 5){
+			console.log(answered);
 			$("div#quiz-content").replaceWith($("<div id='quiz-content'><h2 class='question'>"+allQuestions[answered].question+"</h2><ul><li class='choice'>"+allQuestions[answered].choices[0]+"</li><li class='choice'>"+allQuestions[answered].choices[1]+"</li><li class='choice'>"+allQuestions[answered].choices[2]+"</li><li class='choice'>"+allQuestions[answered].choices[3]+"</li></ul></div>"));
 		} else if (answered == 5){
 			result();
